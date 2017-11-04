@@ -48,5 +48,5 @@ if __name__ == "__main__":
 
     builder = ConanMultiPackager(username=username, channel=channel, reference=reference, upload=upload,
                                  upload_only_when_stable=True, stable_branch_pattern="stable/*")
-    builder.add_common_builds()
+    builder.add_common_builds("--build missing")
     builder.run()
