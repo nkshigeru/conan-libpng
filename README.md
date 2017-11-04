@@ -1,6 +1,6 @@
 [ ![Download](https://api.bintray.com/packages/bincrafters/public-conan/libpng%3Abincrafters/images/download.svg?version=1.6.34%3Astable) ](https://bintray.com/bincrafters/public-conan/libpng%3Abincrafters/1.6.34%3Astable/link)
 [![Build Status](https://travis-ci.org/bincrafters/conan-libpng.svg?branch=stable%2F1.6.34)](https://travis-ci.org/bincrafters/conan-libpng)
-[![Build status](https://ci.appveyor.com/api/projects/status/dx35hcljverrdpi5/branch/stable/1.6.34?svg=true)](https://ci.appveyor.com/project/BinCrafters/conan-libpng/branch/testing/1.6.34)
+[![Build status](https://ci.appveyor.com/api/projects/status/dx35hcljverrdpi5/branch/stable/1.6.34?svg=true)](https://ci.appveyor.com/project/BinCrafters/conan-libpng/branch/stable/1.6.34)
 
 ## Conan Package for libpng
 
