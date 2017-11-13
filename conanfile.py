@@ -64,6 +64,6 @@ class LibpngConan(ConanFile):
                 if self.settings.build_type == "Debug":
                     self.cpp_info.libs[0] += "d"
         else:
-            self.cpp_info.libs = ["png16"]
+            self.cpp_info.libs = ["png16d" if self.settings.build_type == "Debug" else "png16"]
             if self.settings.os == "Linux":
                 self.cpp_info.libs.append("m")
