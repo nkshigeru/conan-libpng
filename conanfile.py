@@ -21,7 +21,7 @@ class LibpngConan(ConanFile):
     "" and has been extensively tested for over 20 years."
 
     def requirements(self):
-        self.requires.add("zlib/1.2.11@conan/stable")
+        self.requires.add("zlib/1.2.11@lasote/stable")
 
     def config_options(self):
         if self.settings.os == "Windows":
