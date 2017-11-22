@@ -13,15 +13,14 @@ class LibpngConan(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
     options = {"shared": [True, False], "fPIC": [True, False]}
     default_options = "shared=False", "fPIC=True"
-    url = "http://github.com/ZaMaZaN4iK/conan-libpng"
+    url="http://github.com/bincrafters/conan-libpng"
     license = "Open source: http://www.libpng.org/pub/png/src/libpng-LICENSE.txt"
     exports = "FindPNG.cmake"
     exports_sources = ["CMakeLists.txt"]
-    description = "libpng is the official PNG reference library. It supports almost all PNG features, is extensible,"" \
-    "" and has been extensively tested for over 20 years."
+    description = "libpng is the official PNG reference library. "
 
     def requirements(self):
-        self.requires.add("zlib/1.2.11@lasote/stable")
+        self.requires.add("zlib/1.2.11@conan/stable")
 
     def config_options(self):
         if self.settings.os == "Windows":
