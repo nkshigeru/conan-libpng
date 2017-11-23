@@ -10,5 +10,6 @@ file(GLOB SOURCE_FILES *.cpp)
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 find_package(PNG REQUIRED)
-target_link_libraries(${PROJECT_NAME} PNG_LIBRARY)
+find_package(ZLIB REQUIRED)
+target_link_libraries(${PROJECT_NAME} ${PNG_LIBRARY} ${ZLIB_LIBRARY})
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 11)
