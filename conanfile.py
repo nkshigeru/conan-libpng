@@ -51,6 +51,9 @@ class LibpngConan(ConanFile):
         cmake.build()
         cmake.install()
 
+    def package(self):
+        self.copy("FindPNG.cmake")
+
     def package_info(self):
         if self.settings.os == "Windows":
             if self.settings.compiler == "gcc":
