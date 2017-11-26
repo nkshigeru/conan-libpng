@@ -40,6 +40,9 @@ class LibpngConan(ConanFile):
         os.unlink(zip_name)
 
     def build(self):
+        if self.settings.os == "Windows" and self.settings.compiler == "gcc":
+            tools.replace_in_file("%s/CMakeLists.txt" % self.ZIP_FOLDER_NAME, 'COMMAND "${CMAKE_COMMAND}" -E copy_if_different $<TARGET_LINKER_FILE_NAME:${S_TARGET}> $<TARGET_LINKER_FILE_DIR:${S_TARGET}>/${DEST_FILE}',
+                                  'COMMAND "${CMAKE_COMMAND}" -E copy_if_different $<TARGET_LINKER_FILE_DIR:${S_TARGET}>/$<TARGET_LINKER_FILE_NAME:${S_TARGET}> $<TARGET_LINKER_FILE_DIR:${S_TARGET}>/${DEST_FILE}')
         cmake = CMake(self)
         cmake.definitions["PNG_TESTS"] = "OFF"
         cmake.definitions["PNG_SHARED"] = self.options.shared
