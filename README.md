@@ -1,12 +1,6 @@
-<<<<<<< HEAD
 [ ![Download](https://api.bintray.com/packages/bincrafters/public-conan/libpng%3Abincrafters/images/download.svg?version=1.6.34%3Astable) ](https://bintray.com/bincrafters/public-conan/libpng%3Abincrafters/1.6.34%3Astable/link)
 [![Build Status](https://travis-ci.org/bincrafters/conan-libpng.svg?branch=stable%2F1.6.34)](https://travis-ci.org/bincrafters/conan-libpng)
 [![Build status](https://ci.appveyor.com/api/projects/status/dx35hcljverrdpi5/branch/stable/1.6.34?svg=true)](https://ci.appveyor.com/project/BinCrafters/conan-libpng/branch/stable/1.6.34)
-=======
-[ ![Download](https://api.bintray.com/packages/bincrafters/public-conan/libpng%3Abincrafters/images/download.svg?version=1.6.32%3Astable) ](https://bintray.com/bincrafters/public-conan/libpng%3Abincrafters/1.6.32%3Astable/link)
-[![Build Status](https://travis-ci.org/bincrafters/conan-libpng.svg?branch=stable%2F1.6.32)](https://travis-ci.org/bincrafters/conan-libpng)
-[![Build status](https://ci.appveyor.com/api/projects/status/dx35hcljverrdpi5/branch/stable/1.6.32?svg=true)](https://ci.appveyor.com/project/BinCrafters/conan-libpng/branch/stable/1.6.32)
->>>>>>> testing/1.6.32
 
 ## Conan Package for libpng
 
@@ -18,22 +12,14 @@ The packages generated with this **conanfile** can be found in [Bintray](https:/
 
 ### Basic setup
 
-<<<<<<< HEAD
     $ conan install libpng/1.6.34@bincrafters/stable
-=======
-    $ conan install libpng/1.6.32@bincrafters/stable
->>>>>>> testing/1.6.32
 
 ### Project setup
 
 If you handle multiple dependencies in your project is better to add a *conanfile.txt*
 
     [requires]
-<<<<<<< HEAD
     libpng/1.6.34@bincrafters/stable
-=======
-    libpng/1.6.32@bincrafters/stable
->>>>>>> testing/1.6.32
 
     [generators]
     txt
@@ -60,14 +46,7 @@ The following command both runs all the steps of the conan file, and publishes t
 
 ## Upload
 
-<<<<<<< HEAD
     $ conan upload libpng/1.6.34@bincrafters/stable --all -r bincrafters
 
 ### License
 [LICENSE](LICENSE)
-=======
-    $ conan upload libpng/1.6.32@bincrafters/stable --all -r bincrafters
-
-### License
-[LICENSE](LICENSE)
->>>>>>> testing/1.6.32
