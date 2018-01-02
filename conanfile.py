@@ -8,16 +8,16 @@ from conans import ConanFile, tools, CMake
 class LibpngConan(ConanFile):
     name = "libpng"
     version = "1.6.34"
-    ZIP_FOLDER_NAME = "%s-%s" % (name, version)
+    description = "libpng is the official PNG file format reference library. "
+    url="http://github.com/bincrafters/conan-libpng"
+    license = "Libpng"
+    exports = ["LICENSE.md"]
+    exports_sources = ["CMakeLists.txt", "FindPNG.cmake"]
     generators = "cmake"
     settings = "os", "arch", "compiler", "build_type"
     options = {"shared": [True, False], "fPIC": [True, False]}
     default_options = "shared=False", "fPIC=True"
-    url="http://github.com/bincrafters/conan-libpng"
-    license = "Open source: http://www.libpng.org/pub/png/src/libpng-LICENSE.txt"
-    exports = "FindPNG.cmake"
-    exports_sources = ["CMakeLists.txt"]
-    description = "libpng is the official PNG reference library. "
+    ZIP_FOLDER_NAME = "%s-%s" % (name, version)
 
     def requirements(self):
         self.requires.add("zlib/1.2.11@conan/stable")
