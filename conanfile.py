@@ -14,7 +14,7 @@ class LibpngConan(ConanFile):
     website = "http://www.libpng.org"
     license = "http://www.libpng.org/pub/png/src/libpng-LICENSE.txt"
     exports = ["LICENSE.md"]
-    exports_sources = ["CMakeLists.txt", "FindPNG.cmake"]
+    exports_sources = ["CMakeLists.txt"]
     generators = "cmake"
     settings = "os", "arch", "compiler", "build_type"
     options = {"shared": [True, False], "fPIC": [True, False]}
@@ -60,7 +60,6 @@ class LibpngConan(ConanFile):
         cmake.install()
 
     def package(self):
-        self.copy("FindPNG.cmake")
         shutil.rmtree(os.path.join(self.package_folder, 'share', 'man'), ignore_errors=True)
 
     def package_info(self):
