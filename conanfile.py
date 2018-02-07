@@ -23,7 +23,7 @@ class LibpngConan(ConanFile):
     source_subfolder = "source_subfolder"
 
     def requirements(self):
-        self.requires.add("zlib/[~=1.2]@conan/stable")
+        self.requires.add("zlib/1.2.11@conan/stable")
 
     def config_options(self):
         if self.settings.os == "Windows":
