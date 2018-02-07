@@ -23,7 +23,7 @@ class LibpngConan(ConanFile):
     source_subfolder = "source_subfolder"
 
     def requirements(self):
-        self.requires.add("zlib/[~=1.2]@conan/stable")
+        self.requires.add("zlib/1.2.11@conan/stable")
 
     def config_options(self):
         if self.settings.os == "Windows":
@@ -48,6 +48,11 @@ class LibpngConan(ConanFile):
         if self.settings.os == "Windows" and self.settings.compiler == "gcc":
             tools.replace_in_file("%s/CMakeListsOriginal.txt" % self.source_subfolder, 'COMMAND "${CMAKE_COMMAND}" -E copy_if_different $<TARGET_LINKER_FILE_NAME:${S_TARGET}> $<TARGET_LINKER_FILE_DIR:${S_TARGET}>/${DEST_FILE}',
                                   'COMMAND "${CMAKE_COMMAND}" -E copy_if_different $<TARGET_LINKER_FILE_DIR:${S_TARGET}>/$<TARGET_LINKER_FILE_NAME:${S_TARGET}> $<TARGET_LINKER_FILE_DIR:${S_TARGET}>/${DEST_FILE}')
+        # do not use _static suffix on VS
+        if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio":
+            tools.replace_in_file("%s/CMakeListsOriginal.txt" % self.source_subfolder,
+                                  'OUTPUT_NAME "${PNG_LIB_NAME}_static',
+                                  'OUTPUT_NAME "${PNG_LIB_NAME}')
         cmake = CMake(self)
         cmake.definitions["PNG_TESTS"] = "OFF"
         cmake.definitions["PNG_SHARED"] = self.options.shared
@@ -67,13 +72,11 @@ class LibpngConan(ConanFile):
             if self.settings.compiler == "gcc":
                 self.cpp_info.libs = ["png"]
             else:
-                if self.options.shared:
-                    self.cpp_info.libs = ['libpng16']
-                else:
-                    self.cpp_info.libs = ['libpng16_static']
-                if self.settings.build_type == "Debug":
-                    self.cpp_info.libs[0] += "d"
+                self.cpp_info.libs = ['libpng16']
         else:
-            self.cpp_info.libs = ["png16d" if self.settings.build_type == "Debug" else "png16"]
+            self.cpp_info.libs = ["png16"]
             if self.settings.os == "Linux":
                 self.cpp_info.libs.append("m")
+        # use 'd' suffix everywhere except mingw
+        if self.settings.build_type == "Debug" and not (self.settings.os == "Windows" and self.settings.compiler == "gcc"):
+            self.cpp_info.libs[0] += "d"
