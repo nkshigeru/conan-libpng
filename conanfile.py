@@ -61,16 +61,18 @@ class LibpngConan(ConanFile):
 
     def package(self):
         shutil.rmtree(os.path.join(self.package_folder, 'share', 'man'), ignore_errors=True)
+        try:
+            os.rename(os.path.join(self.package_folder, "lib", "libpng16_static.lib"),
+                      os.path.join(self.package_folder, "lib", "libpng16.lib"))
+        except:
+            pass
 
     def package_info(self):
         if self.settings.os == "Windows":
             if self.settings.compiler == "gcc":
                 self.cpp_info.libs = ["png"]
             else:
-                if self.options.shared:
-                    self.cpp_info.libs = ['libpng16']
-                else:
-                    self.cpp_info.libs = ['libpng16_static']
+                self.cpp_info.libs = ['libpng16']
                 if self.settings.build_type == "Debug":
                     self.cpp_info.libs[0] += "d"
         else:
