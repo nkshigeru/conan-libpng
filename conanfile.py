@@ -48,6 +48,11 @@ class LibpngConan(ConanFile):
         if self.settings.os == "Windows" and self.settings.compiler == "gcc":
             tools.replace_in_file("%s/CMakeListsOriginal.txt" % self.source_subfolder, 'COMMAND "${CMAKE_COMMAND}" -E copy_if_different $<TARGET_LINKER_FILE_NAME:${S_TARGET}> $<TARGET_LINKER_FILE_DIR:${S_TARGET}>/${DEST_FILE}',
                                   'COMMAND "${CMAKE_COMMAND}" -E copy_if_different $<TARGET_LINKER_FILE_DIR:${S_TARGET}>/$<TARGET_LINKER_FILE_NAME:${S_TARGET}> $<TARGET_LINKER_FILE_DIR:${S_TARGET}>/${DEST_FILE}')
+        # do not use _static suffix on VS
+        if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio":
+            tools.replace_in_file("%s/CMakeListsOriginal.txt" % self.source_subfolder,
+                                  'OUTPUT_NAME "${PNG_LIB_NAME}_static',
+                                  'OUTPUT_NAME "${PNG_LIB_NAME}')
         cmake = CMake(self)
         cmake.definitions["PNG_TESTS"] = "OFF"
         cmake.definitions["PNG_SHARED"] = self.options.shared
@@ -61,11 +66,6 @@ class LibpngConan(ConanFile):
 
     def package(self):
         shutil.rmtree(os.path.join(self.package_folder, 'share', 'man'), ignore_errors=True)
-        try:
-            os.rename(os.path.join(self.package_folder, "lib", "libpng16_static.lib"),
-                      os.path.join(self.package_folder, "lib", "libpng16.lib"))
-        except:
-            pass
 
     def package_info(self):
         if self.settings.os == "Windows":
