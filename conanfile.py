@@ -9,9 +9,9 @@ from conans import ConanFile, tools, CMake
 class LibpngConan(ConanFile):
     name = "libpng"
     version = "1.6.34"
-    description = "libpng is the official PNG file format reference library. "
-    url="http://github.com/bincrafters/conan-libpng"
-    website = "http://www.libpng.org"
+    description = "libpng is the official PNG file format reference library."
+    url = "http://github.com/bincrafters/conan-libpng"
+    homepage = "http://www.libpng.org"
     license = "http://www.libpng.org/pub/png/src/libpng-LICENSE.txt"
     exports = ["LICENSE.md"]
     exports_sources = ["CMakeLists.txt"]
@@ -31,13 +31,11 @@ class LibpngConan(ConanFile):
 
     def configure(self):
         del self.settings.compiler.libcxx
-        
+
     def source(self):
         base_url = "https://sourceforge.net/projects/libpng/files/libpng16/"
-        try:
-            tools.get("%s/%s/libpng-%s.tar.gz" % (base_url, self.version, self.version))
-        except Exception:
-            tools.get("%s/older-releases/%s/libpng-%s.tar.gz" % (base_url, self.version, self.version))
+        tools.get("%s/%s/libpng-%s.tar.gz" % (base_url, self.version, self.version))
+        #tools.get("%s/older-releases/%s/libpng-%s.tar.gz" % (base_url, self.version, self.version))
         os.rename("libpng-" + self.version, self.source_subfolder)
         os.rename(os.path.join(self.source_subfolder, "CMakeLists.txt"),
                   os.path.join(self.source_subfolder, "CMakeListsOriginal.txt"))
@@ -46,7 +44,8 @@ class LibpngConan(ConanFile):
 
     def build(self):
         if self.settings.os == "Windows" and self.settings.compiler == "gcc":
-            tools.replace_in_file("%s/CMakeListsOriginal.txt" % self.source_subfolder, 'COMMAND "${CMAKE_COMMAND}" -E copy_if_different $<TARGET_LINKER_FILE_NAME:${S_TARGET}> $<TARGET_LINKER_FILE_DIR:${S_TARGET}>/${DEST_FILE}',
+            tools.replace_in_file("%s/CMakeListsOriginal.txt" % self.source_subfolder,
+                                  'COMMAND "${CMAKE_COMMAND}" -E copy_if_different $<TARGET_LINKER_FILE_NAME:${S_TARGET}> $<TARGET_LINKER_FILE_DIR:${S_TARGET}>/${DEST_FILE}',
                                   'COMMAND "${CMAKE_COMMAND}" -E copy_if_different $<TARGET_LINKER_FILE_DIR:${S_TARGET}>/$<TARGET_LINKER_FILE_NAME:${S_TARGET}> $<TARGET_LINKER_FILE_DIR:${S_TARGET}>/${DEST_FILE}')
         # do not use _static suffix on VS
         if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio":
