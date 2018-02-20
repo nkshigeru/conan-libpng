@@ -65,6 +65,7 @@ class LibpngConan(ConanFile):
         cmake.install()
 
     def package(self):
+        self.copy("LICENSE", src=self.source_subfolder, dst="licenses", ignore_case=True, keep_path=False)
         shutil.rmtree(os.path.join(self.package_folder, 'share', 'man'), ignore_errors=True)
 
     def package_info(self):
