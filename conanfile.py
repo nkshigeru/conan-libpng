@@ -52,6 +52,11 @@ class LibpngConan(ConanFile):
             tools.replace_in_file("%s/CMakeListsOriginal.txt" % self.source_subfolder,
                                   'OUTPUT_NAME "${PNG_LIB_NAME}_static',
                                   'OUTPUT_NAME "${PNG_LIB_NAME}')
+
+        if self.settings.build_type == 'Debug':
+            tools.replace_in_file(os.path.join(self.source_subfolder, 'libpng.pc.in'),
+                                  '-lpng@PNGLIB_MAJOR@@PNGLIB_MINOR@',
+                                  '-lpng@PNGLIB_MAJOR@@PNGLIB_MINOR@d')
         cmake = CMake(self)
         cmake.definitions["PNG_TESTS"] = "OFF"
         cmake.definitions["PNG_SHARED"] = self.options.shared
