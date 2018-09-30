@@ -58,6 +58,11 @@ class LibpngConan(ConanFile):
                                   '-lpng@PNGLIB_MAJOR@@PNGLIB_MINOR@',
                                   '-lpng@PNGLIB_MAJOR@@PNGLIB_MINOR@d')
         cmake = CMake(self)
+
+        cmake.definitions['CMAKE_INSTALL_LIBDIR'] = 'lib'
+        cmake.definitions['CMAKE_INSTALL_BINDIR'] = 'bin'
+        cmake.definitions['CMAKE_INSTALL_INCLUDEDIR'] = 'include'
+
         cmake.definitions["PNG_TESTS"] = "OFF"
         cmake.definitions["PNG_SHARED"] = self.options.shared
         cmake.definitions["PNG_STATIC"] = not self.options.shared
