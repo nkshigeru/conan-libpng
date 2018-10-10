@@ -57,6 +57,12 @@ class LibpngConan(ConanFile):
             tools.replace_in_file(os.path.join(self.source_subfolder, 'libpng.pc.in'),
                                   '-lpng@PNGLIB_MAJOR@@PNGLIB_MINOR@',
                                   '-lpng@PNGLIB_MAJOR@@PNGLIB_MINOR@d')
+
+        if 'arm' in self.settings.arch and self.settings.os == "Linux":
+            tools.replace_in_file(os.path.join(self.source_subfolder, 'CMakeListsOriginal.txt'),
+                                  'PATHS /usr/lib /usr/local/lib',
+                                  'PATHS /usr/lib /usr/local/lib /usr/arm-linux-gnueabihf/lib /usr/arm-linux-gnueabi/lib ')
+
         cmake = CMake(self)
 
         cmake.definitions['CMAKE_INSTALL_LIBDIR'] = 'lib'
