@@ -1,6 +1,7 @@
 import os
 import re
 import subprocess
+import platform
 
 from conans import ConanFile, CMake, tools, RunEnvironment
 
@@ -15,8 +16,10 @@ class TestPackageConan(ConanFile):
         cmake.build()
 
     def test(self):
+        arm_archs = ['arm', 'aarch64_be', 'aarch64', 'armv8b', 'armv8l']
         if "arm" in self.settings.arch:
-            self.test_arm()
+            if platform.machine() in arm_archs):
+                self.test_arm()
         else:
             bin_path = os.path.join("bin", "test_package")
             self.run(bin_path, run_environment=True)
