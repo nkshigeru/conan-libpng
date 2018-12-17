@@ -18,7 +18,7 @@ class TestPackageConan(ConanFile):
     def test(self):
         arm_archs = ['arm', 'aarch64_be', 'aarch64', 'armv8b', 'armv8l']
         if "arm" in self.settings.arch:
-            if platform.machine() in arm_archs):
+            if platform.machine() in arm_archs:
                 self.test_arm()
         else:
             bin_path = os.path.join("bin", "test_package")
