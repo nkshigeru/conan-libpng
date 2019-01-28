@@ -8,7 +8,7 @@ from conans import ConanFile, tools, CMake
 
 class LibpngConan(ConanFile):
     name = "libpng"
-    version = "1.6.34"
+    version = "1.6.36"
     description = "libpng is the official PNG file format reference library."
     url = "http://github.com/bincrafters/conan-libpng"
     author = "Bincrafters <bincrafters@gmail.com>"
@@ -35,8 +35,9 @@ class LibpngConan(ConanFile):
 
     def source(self):
         base_url = "https://sourceforge.net/projects/libpng/files/libpng16/"
-        tools.get("%s/%s/libpng-%s.tar.gz" % (base_url, self.version, self.version))
-        #tools.get("%s/older-releases/%s/libpng-%s.tar.gz" % (base_url, self.version, self.version))
+        tools.get(
+            "%s/%s/libpng-%s.tar.xz" % (base_url, self.version, self.version),
+            sha256="eceb924c1fa6b79172fdfd008d335f0e59172a86a66481e09d4089df872aa319")
         os.rename("libpng-" + self.version, self._source_subfolder)
         os.rename(os.path.join(self._source_subfolder, "CMakeLists.txt"),
                   os.path.join(self._source_subfolder, "CMakeListsOriginal.txt"))
