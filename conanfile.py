@@ -35,9 +35,10 @@ class LibpngConan(ConanFile):
 
     def source(self):
         base_url = "https://sourceforge.net/projects/libpng/files/libpng16/"
+        # Don't use .xz, CIs uses conan/python2, which does not support xz
         tools.get(
-            "%s/%s/libpng-%s.tar.xz" % (base_url, self.version, self.version),
-            sha256="eceb924c1fa6b79172fdfd008d335f0e59172a86a66481e09d4089df872aa319")
+            "%s/%s/libpng-%s.tar.gz" % (base_url, self.version, self.version),
+            sha256="ca13c548bde5fb6ff7117cc0bdab38808acb699c0eccb613f0e4697826e1fd7d")
         os.rename("libpng-" + self.version, self._source_subfolder)
         os.rename(os.path.join(self._source_subfolder, "CMakeLists.txt"),
                   os.path.join(self._source_subfolder, "CMakeListsOriginal.txt"))
