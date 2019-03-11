@@ -48,7 +48,7 @@ class LibpngConan(ConanFile):
     def build(self):
         if self.settings.os == "Windows":
             if self.settings.compiler == "Visual Studio":
-                ools.replace_in_file("%s/CMakeListsOriginal.txt" % self._source_subfolder,
+                tools.replace_in_file("%s/CMakeListsOriginal.txt" % self._source_subfolder,
                                      'OUTPUT_NAME "${PNG_LIB_NAME}_static',
                                      'OUTPUT_NAME "${PNG_LIB_NAME}')
             else:
