@@ -3,6 +3,10 @@
 #include "png.h"
 #include "zlib.h"
 
+#ifndef PNG_APNG_SUPPORTED
+#error apng is not supported
+#endif
+
 int main()
 {
   fprintf(stderr, "   Compiled with libpng %s; using libpng %s.\n",

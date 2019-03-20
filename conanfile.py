@@ -3,11 +3,12 @@
 
 import os
 import shutil
+import gzip
 from conans import ConanFile, tools, CMake
 
 
 class LibpngConan(ConanFile):
-    name = "libpng"
+    name = "libpng-apng"
     version = "1.6.36"
     description = "libpng is the official PNG file format reference library."
     url = "http://github.com/bincrafters/conan-libpng"
@@ -40,6 +41,17 @@ class LibpngConan(ConanFile):
             "%s/%s/libpng-%s.tar.gz" % (base_url, self.version, self.version),
             sha256="ca13c548bde5fb6ff7117cc0bdab38808acb699c0eccb613f0e4697826e1fd7d")
         os.rename("libpng-" + self.version, self._source_subfolder)
+
+        # APNG patch
+        patch_base_url = "https://sourceforge.net/projects/libpng-apng/files/libpng16/"
+        tools.download(
+            "%s/%s/libpng-%s-apng.patch.gz" % (patch_base_url, self.version, self.version),
+            "libpng-apng.patch.gz")
+        tools.check_sha1("libpng-apng.patch.gz", "a08f3d348dd10882b8a81544b56e53618fb8921e")
+        with gzip.open("libpng-apng.patch.gz", "rb") as f:
+            patch = f.read().decode()
+        tools.patch(base_path=self._source_subfolder, patch_string=patch, strip=1)
+
         os.rename(os.path.join(self._source_subfolder, "CMakeLists.txt"),
                   os.path.join(self._source_subfolder, "CMakeListsOriginal.txt"))
         shutil.copy("CMakeLists.txt",
