@@ -8,9 +8,9 @@ from conans import ConanFile, tools, CMake
 
 
 class LibpngConan(ConanFile):
-    name = "libpng-apng"
+    name = "libpng"
     version = "1.6.36"
-    description = "libpng is the official PNG file format reference library."
+    description = "libpng is the official PNG file format reference library. APNG supported."
     url = "http://github.com/bincrafters/conan-libpng"
     author = "Bincrafters <bincrafters@gmail.com>"
     homepage = "http://www.libpng.org"
